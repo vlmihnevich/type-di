@@ -1,0 +1,8 @@
+version: "3"
+services:
+  test:
+    build: .
+    image: di:latest
+    volumes:
+      - .:/usr/src/app/
+    command: ./run_tests.sh
