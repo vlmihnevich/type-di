@@ -34,7 +34,7 @@ def test_injector_register_singlethon_class_by_default(
     @injectable(key=key)
     class Service:
         ...
-    
+
     assert injectable.get_injectable(Service) is Service
     assert injectable.is_singleton(Service) is True
 

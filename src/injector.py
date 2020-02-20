@@ -67,4 +67,3 @@ class Injector:
     def reset(self):
         self._injectable = {}
         self._singletons = {}
-

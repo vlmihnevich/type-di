@@ -525,7 +525,6 @@ def test_example_multitenant_report_builder():
 
     container_b.register(ReportBuilderB, ReportBuilderB, False)
 
-
     class ReportBuilderC:
         def __init__(self, log: Logger, provider: ApiClientA):
             self.log = log

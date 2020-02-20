@@ -1,5 +1,4 @@
 from .container import Container, injectable
-from .exceptions import InjectionError, NonInjectableArgument
 
 import logging
 
@@ -10,5 +9,5 @@ logging.basicConfig(
 )
 
 __all__ = [
-    'injectable', 'Container'
+    'injectable', 'Container',
 ]

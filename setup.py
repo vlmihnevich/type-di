@@ -1,7 +1,7 @@
 """`Dependency injector` setup script."""
 import re
 
-from setuptools import setup, Extension
+from setuptools import setup
 
 
 # Defining setup variables:
