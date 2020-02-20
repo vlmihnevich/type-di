@@ -24,7 +24,7 @@ def test_injector_register_new_class(f_clean_up_injector):
 
 
 @pytest.mark.parametrize('key', [
-    'service_name', 
+    'service_name',
     tuple(['namespace', 'service_name']),
     666,
 ])
@@ -44,7 +44,7 @@ def test_injector_register_singlethon_class_by_default(
     False,
 ])
 @pytest.mark.parametrize('key', [
-    'service_name', 
+    'service_name',
     tuple(['namespace', 'service_name']),
     666,
 ])
@@ -64,17 +64,16 @@ def test_injector_register_new_class_with_custom_key(
     assert injectable.is_singleton(Service) is is_singleton
 
 
-
 @pytest.mark.parametrize('is_singleton', [
     True,
     False,
 ])
 @pytest.mark.parametrize('key', [
-    'service_name', 
+    'service_name',
     tuple(['namespace', 'service_name']),
     666,
 ])
-def test_injector_register_new_class_with_custom_key(
+def test_injector_register_new_class_with_custom_key_using_register_method(
     f_clean_up_injector, is_singleton: bool, key: Hashable
 ):
     class Service:

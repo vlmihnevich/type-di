@@ -129,7 +129,7 @@ class Container(Injector):
     ) -> typing.Tuple[Type, ...]:
         if hasattr(param.annotation, '__args__'):
             return param.annotation.__args__
-        
+
         return param.annotation,
 
 

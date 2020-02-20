@@ -1,6 +1,5 @@
 import logging
-from collections import defaultdict
-from typing import Type, Optional, Set, Dict, Hashable
+from typing import Type, Optional, Dict, Hashable
 
 from . import exceptions
 
@@ -20,7 +19,7 @@ class Injector:
             klass: Type,
         ):
             return self.register(key, klass, singleton)
-        
+
         return wrapper
 
     def register(
@@ -60,7 +59,7 @@ class Injector:
     ) -> Type:
         if key not in self._injectable:
             raise exceptions.NonInjectableClass(
-                f'{key} is non injectable or missing', 
+                f'{key} is non injectable or missing',
                 key
             )
         return self._injectable[key]
