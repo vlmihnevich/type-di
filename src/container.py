@@ -34,26 +34,23 @@ class Container(Injector):
     ):
         context = context or {}
 
-        old_context = self.context
         try:
-            self.context = {
+            klass = self.get_injectable(key)
+            return self._get(klass)
+        except exceptions.NonInjectableClass:
+            parent_context = {
                 **self.context,
                 **context
             }
 
             logging.debug(
                 'getting key=%s, context=%s',
-                key, self.context
+                key, parent_context
             )
 
-            klass = self.get_injectable(key)
-            return self._get(klass)
-        except exceptions.NonInjectableClass:
             if self._parent:
-                return self._parent.get(key, self.context)
+                return self._parent.get(key, parent_context)
             raise
-        finally:
-            self.context = old_context
 
     def _get(self, key: Hashable):
         if not self.is_singleton(key):
@@ -97,7 +94,8 @@ class Container(Injector):
         annotations = self.__extract_types(param)
 
         if param.kind in (
-            inspect.Parameter.VAR_POSITIONAL, inspect.Parameter.VAR_KEYWORD
+            inspect.Parameter.VAR_POSITIONAL,
+            inspect.Parameter.VAR_KEYWORD,
         ):
             return self._VAR_KIND_PARAMETER
 
