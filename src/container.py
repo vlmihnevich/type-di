@@ -71,14 +71,18 @@ class Container(Injector):
             return self.context[key](self)
 
         if not self.is_injectable(key):
-            raise exceptions.NonInjectableClass(f'{key} is non injectable', key)
+            raise exceptions.NonInjectableClass(
+                f'{key} is non injectable', key
+            )
 
         parameters = inspect.signature(key.__init__).parameters
         args = list(parameters.values())[1:]
         args = [
             self._get_argument(arg, key) for arg in args
         ]
-        args = list(filter(lambda it: it is not self._VAR_KIND_PARAMETER, args))
+        args = list(filter(
+            lambda it: it is not self._VAR_KIND_PARAMETER, args
+        ))
 
         instance = key(*args)
 
@@ -129,7 +133,7 @@ class Container(Injector):
     ) -> typing.Tuple[Type, ...]:
         if hasattr(param.annotation, '__args__'):
             return param.annotation.__args__
-        
+
         return param.annotation,
 
 

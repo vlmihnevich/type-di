@@ -1,6 +1,6 @@
 import pytest
 
-from typing import Optional, Union, Tuple, Dict, Hashable
+from typing import Optional, Union, Dict, Hashable
 from unittest.mock import Mock
 
 from . import exceptions
@@ -40,7 +40,6 @@ def test_should_create_simple_service_instance_1():
     assert injectable.get(ServiceA) is injectable.get(ServiceA)
 
 
-
 def test_should_create_simple_service_instance_2():
     injectable = Container()
 
@@ -70,8 +69,6 @@ def test_should_create_simple_service_using_custom_key_0(
     class ServiceA:
         def __init__(self):
             pass
-
-    instance = injectable.get(key)
 
     assert isinstance(injectable.get(key), ServiceA)
     assert isinstance(injectable.get(ServiceA), ServiceA)
@@ -114,7 +111,7 @@ def test_should_create_singleton_service_using_factory_1():
         ServiceA: lambda inj: ServiceA(1)
     })
     injectable.register(ServiceA, ServiceA, True)
-    
+
     instance_1 = injectable.get(ServiceA)
     instance_2 = injectable.get(ServiceA)
 
@@ -132,7 +129,7 @@ def test_should_create_non_singleton_service_using_factory_1():
         ServiceA: lambda inj: ServiceA(1)
     })
     injectable.register(ServiceA, ServiceA, False)
-    
+
     instance_1 = injectable.get(ServiceA)
     instance_2 = injectable.get(ServiceA)
 
@@ -196,7 +193,7 @@ def test_should_create_transitive_non_singleton_service():
             self.a = a
 
     instances = [injectable.get(B), injectable.get(C)]
-    
+
     assert isinstance(instances[0], B)
     assert instances[0] is injectable.get(B)
 
@@ -226,7 +223,7 @@ def test_should_create_transitive_singleton_service():
             self.a = a
 
     instances = [injectable.get(B), injectable.get(C)]
-    
+
     assert isinstance(instances[0], B)
     assert instances[0] is injectable.get(B)
 
@@ -258,7 +255,7 @@ def test_instantiate_service_from_parent_container():
     class C:
         def __init__(self, a: A):
             self.a = a
-    
+
     children[1].register(C, C, True)
 
     b, c = (children[0].get(B), children[1].get(C))
@@ -294,7 +291,7 @@ def test_instantiate_service_from_parent_container_using_context():
     class C:
         def __init__(self, a: A):
             self.a = a
-    
+
     children[1].register(C, C, True)
 
     b, c = (children[0].get(B), children[1].get(C))
@@ -305,7 +302,6 @@ def test_instantiate_service_from_parent_container_using_context():
     assert isinstance(c.a, A)
 
     assert b.a is c.a
-
 
 
 def test_should_create_service_using_factory():
@@ -345,7 +341,7 @@ def test_should_create_service_using_factory():
 
 def test_should_raise_exception_with_non_injectable_argument_0():
     injectable = Container()
-    
+
     @injectable()
     class A:
         pass
@@ -513,7 +509,7 @@ def test_example_multitenant_report_builder():
         def __init__(self, log: Logger, provider: ApiClientA):
             self.log = log
             self.provider = provider
-    
+
     container_a.register(ReportBuilderA, ReportBuilderA, False)
 
     class ApiClientB:
@@ -526,15 +522,14 @@ def test_example_multitenant_report_builder():
         def __init__(self, log: Logger, provider: ApiClientB):
             self.log = log
             self.provider = provider
-    
-    container_b.register(ReportBuilderB, ReportBuilderB, False)
 
+    container_b.register(ReportBuilderB, ReportBuilderB, False)
 
     class ReportBuilderC:
         def __init__(self, log: Logger, provider: ApiClientA):
             self.log = log
             self.provider = provider
-    
+
     container_c.register(ReportBuilderB, ReportBuilderC, False)
     container_c.register(ReportBuilderB, ApiClientA, False)
 

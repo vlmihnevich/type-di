@@ -1,8 +1,7 @@
 """`Dependency injector` setup script."""
-import os
 import re
 
-from setuptools import setup, Extension
+from setuptools import setup
 
 
 # Defining setup variables:
@@ -59,4 +58,3 @@ setup(name='di',
           'Topic :: Software Development :: Libraries',
           'Topic :: Software Development :: Libraries :: Python Modules',
       ])
-
