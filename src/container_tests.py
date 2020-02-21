@@ -1,6 +1,6 @@
 import pytest
 
-from typing import Optional, Union, Dict, Hashable
+from typing import Optional, Union, Hashable
 from unittest.mock import Mock
 
 from . import exceptions
